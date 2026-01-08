@@ -330,6 +330,37 @@
             text-transform: uppercase;
             font-size: 0.75rem;
             letter-spacing: 1px;
+            cursor: pointer;
+            position: relative;
+            transition: background 0.2s;
+        }
+
+        th:hover {
+            background: #f1f5f9;
+        }
+
+        th::after {
+            content: '↕️';
+            font-size: 0.8em;
+            margin-left: 5px;
+            opacity: 0.3;
+        }
+
+        th.sort-asc::after {
+            content: '🔼';
+            opacity: 1;
+        }
+
+        th.no-sort {
+            cursor: default;
+        }
+
+        th.no-sort:hover {
+            background: inherit;
+        }
+
+        th.no-sort::after {
+            display: none;
         }
 
         th,
@@ -911,22 +942,62 @@
                 <h2 style="margin-bottom: 20px; color: #333;">📋 Todas as Contratações</h2>
 
                 <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="🔍 Buscar por nome ou secretaria...">
-                    <select id="filterPriority">
-                        <option value="">📊 Todas as Prioridades</option>
-                        <option value="Alto">⚡ Prioridade Alta</option>
-                        <option value="Médio">📌 Prioridade Média</option>
-                        <option value="Baixo">✓ Prioridade Baixa</option>
+                    <input type="text" id="searchInput" placeholder="🔍 Buscar por objeto ou código...">
+
+                    <select id="filterSecretaria">
+                        <option value="">🏢 Todas as Secretarias</option>
+                        <option value="SEMAS">SEMAS</option>
+                        <option value="SEMED">SEMED</option>
+                        <option value="SEMUSA">SEMUSA</option>
+                        <option value="SEMAD">SEMAD</option>
+                        <option value="SEMOB">SEMOB</option>
+                        <option value="SEMAP">SEMAP</option>
+                        <option value="SEMAM">SEMAM</option>
+                        <option value="SEMDETUR">SEMDETUR</option>
+                        <option value="UNIFICADO">UNIFICADO</option>
                     </select>
+
                     <select id="filterType">
                         <option value="">📂 Todos os Tipos</option>
                         <option value="Material">🛒 Materiais</option>
                         <option value="Serviço">🤝 Serviços</option>
                     </select>
+
                     <select id="filterMaterial">
-                        <option value="">📦 Todos os Materiais</option>
+                        <option value="">📦 Todas as Classificações</option>
                         <option value="Consumo">📦 Consumo</option>
                         <option value="Permanente">🔧 Permanente</option>
+                    </select>
+
+                    <select id="filterMonth">
+                        <option value="">📅 Todos os Meses</option>
+                        <option value="Janeiro">Janeiro</option>
+                        <option value="Fevereiro">Fevereiro</option>
+                        <option value="Março">Março</option>
+                        <option value="Abril">Abril</option>
+                        <option value="Maio">Maio</option>
+                        <option value="Junho">Junho</option>
+                        <option value="Julho">Julho</option>
+                        <option value="Agosto">Agosto</option>
+                        <option value="Setembro">Setembro</option>
+                        <option value="Outubro">Outubro</option>
+                        <option value="Novembro">Novembro</option>
+                        <option value="Dezembro">Dezembro</option>
+                    </select>
+
+                    <select id="filterValue">
+                        <option value="">💰 Todas as Faixas de Valor</option>
+                        <option value="100000">Até R$ 100.000</option>
+                        <option value="500000">R$ 100.000 - R$ 500.000</option>
+                        <option value="1000000">R$ 500.000 - R$ 1.000.000</option>
+                        <option value="above">Acima de R$ 1.000.000</option>
+                    </select>
+
+                    <select id="filterPriority">
+                        <option value="">📊 Todas as Prioridades</option>
+                        <option value="Alto">⚡ Alto</option>
+                        <option value="Médio">📌 Médio</option>
+                        <option value="Baixo">✓ Baixo</option>
                     </select>
                 </div>
 
@@ -934,14 +1005,14 @@
                     <table id="contractsTable">
                         <thead>
                             <tr>
-                                <th>Código</th>
-                                <th>Objeto</th>
-                                <th>Secretaria</th>
-                                <th>Tipo</th>
-                                <th>Classificação</th>
-                                <th>Valor</th>
-                                <th>Conclusão</th>
-                                <th>Prioridade</th>
+                                <th class="no-sort">Código</th>
+                                <th onclick="sortTable('objeto')">Objeto</th>
+                                <th onclick="sortTable('secretaria')">Secretaria</th>
+                                <th onclick="sortTable('tipo')">Tipo</th>
+                                <th onclick="sortTable('classificacao')">Classificação</th>
+                                <th onclick="sortTable('valor')">Valor</th>
+                                <th onclick="sortTable('conclusao')">Conclusão</th>
+                                <th onclick="sortTable('prioridade')">Prioridade</th>
                             </tr>
                         </thead>
                         <tbody id="tableBody">
@@ -1254,21 +1325,93 @@
                 });
             }
 
+            let currentSortColumn = null;
+            let currentSortDirection = 'asc';
+
+            function sortTable(column) {
+                if (currentSortColumn === column) {
+                    currentSortDirection = currentSortDirection === 'asc' ? 'desc' : 'asc';
+                } else {
+                    currentSortColumn = column;
+                    currentSortDirection = 'asc';
+                }
+
+                // Atualizar classes visuais nos headers
+                document.querySelectorAll('th').forEach(th => {
+                    th.classList.remove('sort-asc', 'sort-desc');
+                    const thText = th.innerText.toLowerCase();
+                    if (thText.includes(column) ||
+                        (column === 'codigo' && thText.includes('código')) ||
+                        (column === 'conclusao' && thText.includes('conclusão')) ||
+                        (column === 'classificacao' && thText.includes('classificação'))) {
+                        th.classList.add(currentSortDirection === 'asc' ? 'sort-asc' : 'sort-desc');
+                    }
+                });
+
+                applyFilters();
+            }
+
+            function getSortedData(data) {
+                if (!currentSortColumn) return data;
+
+                const monthOrder = {
+                    'Janeiro': 1, 'Fevereiro': 2, 'Março': 3, 'Abril': 4, 'Maio': 5, 'Junho': 6,
+                    'Julho': 7, 'Agosto': 8, 'Setembro': 9, 'Outubro': 10, 'Novembro': 11, 'Dezembro': 12
+                };
+
+                const priorityOrder = { 'Alto': 1, 'Médio': 2, 'Baixo': 3 };
+
+                return [...data].sort((a, b) => {
+                    let valA = a[currentSortColumn];
+                    let valB = b[currentSortColumn];
+
+                    if (currentSortColumn === 'conclusao') {
+                        valA = monthOrder[valA] || 99;
+                        valB = monthOrder[valB] || 99;
+                    } else if (currentSortColumn === 'prioridade') {
+                        valA = priorityOrder[valA] || 99;
+                        valB = priorityOrder[valB] || 99;
+                    }
+
+                    if (typeof valA === 'string' && currentSortColumn !== 'conclusao' && currentSortColumn !== 'prioridade') valA = valA.toLowerCase();
+                    if (typeof valB === 'string' && currentSortColumn !== 'conclusao' && currentSortColumn !== 'prioridade') valB = valB.toLowerCase();
+
+                    if (valA < valB) return currentSortDirection === 'asc' ? -1 : 1;
+                    if (valA > valB) return currentSortDirection === 'asc' ? 1 : -1;
+                    return 0;
+                });
+            }
+
             // Função de busca e filtro
             function applyFilters() {
                 const searchInput = document.getElementById('searchInput').value.toLowerCase();
                 const priorityFilter = document.getElementById('filterPriority').value;
                 const typeFilter = document.getElementById('filterType').value;
                 const materialFilter = document.getElementById('filterMaterial').value;
+                const secretariaFilter = document.getElementById('filterSecretaria').value;
+                const monthFilter = document.getElementById('filterMonth').value;
+                const valueFilter = document.getElementById('filterValue').value;
 
-                const filtered = contracts.filter(c => {
-                    const matchSearch = c.objeto.toLowerCase().includes(searchInput) || c.secretaria.toLowerCase().includes(searchInput) || c.codigo.toLowerCase().includes(searchInput);
+                let filtered = contracts.filter(c => {
+                    const matchSearch = c.objeto.toLowerCase().includes(searchInput) || c.codigo.toLowerCase().includes(searchInput);
                     const matchPriority = !priorityFilter || c.prioridade === priorityFilter;
                     const matchType = !typeFilter || c.tipo === typeFilter;
                     const matchMaterial = !materialFilter || c.classificacao === materialFilter;
-                    return matchSearch && matchPriority && matchType && matchMaterial;
+                    const matchSecretaria = !secretariaFilter || c.secretaria.includes(secretariaFilter);
+                    const matchMonth = !monthFilter || c.conclusao === monthFilter;
+
+                    let matchValue = true;
+                    if (valueFilter) {
+                        if (valueFilter === "100000") matchValue = c.valor <= 100000;
+                        else if (valueFilter === "500000") matchValue = c.valor > 100000 && c.valor <= 500000;
+                        else if (valueFilter === "1000000") matchValue = c.valor > 500000 && c.valor <= 1000000;
+                        else if (valueFilter === "above") matchValue = c.valor > 1000000;
+                    }
+
+                    return matchSearch && matchPriority && matchType && matchMaterial && matchSecretaria && matchMonth && matchValue;
                 });
 
+                filtered = getSortedData(filtered);
                 renderTable(filtered);
             }
 
@@ -1304,6 +1447,9 @@
             document.getElementById('filterPriority').addEventListener('change', applyFilters);
             document.getElementById('filterType').addEventListener('change', applyFilters);
             document.getElementById('filterMaterial').addEventListener('change', applyFilters);
+            document.getElementById('filterSecretaria').addEventListener('change', applyFilters);
+            document.getElementById('filterMonth').addEventListener('change', applyFilters);
+            document.getElementById('filterValue').addEventListener('change', applyFilters);
 
             // Generate chronology
             function generateChronology() {

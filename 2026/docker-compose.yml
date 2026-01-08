@@ -7,6 +7,5 @@ services:
     ports:
       - "10001:80"
     volumes:
-      - .:/usr/share/nginx/html
-      - "./PAC 2026 Bandeirantes.html:/usr/share/nginx/html/index.html"
+      - .:/usr/share/nginx/html/pac2026
     restart: always
