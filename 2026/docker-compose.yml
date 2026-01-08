@@ -7,6 +7,7 @@ services:
     ports:
       - "10001:80"
     volumes:
-      - .:/usr/share/nginx/html
-      - "./PAC 2026 Bandeirantes.html:/usr/share/nginx/html/index.html"
+      # MAPEAMENTO PARA SUBPASTA:
+      # Isso faz com que seus arquivos apareçam em /pac2026 dentro do servidor
+      - .:/usr/share/nginx/html/pac2026
     restart: always
