@@ -7,7 +7,8 @@ services:
     ports:
       - "10001:80"
     volumes:
-      # MAPEAMENTO PARA SUBPASTA:
-      # Isso faz com que seus arquivos apareçam em /pac2026 dentro do servidor
+      # Mapeia para a raiz (funciona em pac.bandeirantesms.app.br)
+      - .:/usr/share/nginx/html
+      # Mapeia para a subpasta (funciona em pac.bandeirantesms.app.br/pac2026)
       - .:/usr/share/nginx/html/pac2026
     restart: always
