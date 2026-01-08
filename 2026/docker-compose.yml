@@ -2,10 +2,13 @@ version: '3.8'
 
 services:
   pac-portal:
-    image: nginx:alpine
+    build: .
     container_name: pac_bandeirantes_portal
     ports:
-      - "10001:80"
+      - "10001:3000"
     volumes:
-      - .:/usr/share/nginx/html/pac2026
+      - .:/app
+      - /app/node_modules
+    environment:
+      - PORT=3000
     restart: always
