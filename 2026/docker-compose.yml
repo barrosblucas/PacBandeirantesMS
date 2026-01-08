@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  pac-portal:
+    image: nginx:alpine
+    container_name: pac_bandeirantes_portal
+    ports:
+      - "10001:80"
+    volumes:
+      - .:/usr/share/nginx/html
+      - "./PAC 2026 Bandeirantes.html:/usr/share/nginx/html/index.html"
+    restart: always
