@@ -5,7 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PAC 2026 - Prefeitura de Bandeirantes MS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary: #1a4d2e;
+            --primary-light: #4f6f52;
+            --accent: #dbe7c9;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --text-dark: #0f172a;
+            --text-muted: #475569;
+            --success: #10b981;
+            --warning: #f59e0b;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,102 +28,172 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #004a80 0%, #008f39 100%);
+            font-family: 'Outfit', sans-serif;
+            background: #f1f5f9;
+            background-image:
+                radial-gradient(at 0% 0%, rgba(26, 77, 46, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(79, 111, 82, 0.05) 0px, transparent 50%);
             min-height: 100vh;
-            padding: 20px;
-            color: #333;
+            padding: 40px 20px;
+            color: var(--text-dark);
+            line-height: 1.6;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1240px;
             margin: 0 auto;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            background: var(--white);
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
             overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .header {
-            background: linear-gradient(135deg, #004a80 0%, #008f39 100%);
+            background: var(--primary);
+            background-image: linear-gradient(135deg, #1a4d2e 0%, #2d5a3c 100%);
             color: white;
-            padding: 40px 20px;
+            padding: 60px 40px;
             text-align: center;
             position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -10%;
+            width: 120%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+            pointer-events: none;
         }
 
         .header-logos {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 30px;
-            margin-bottom: 30px;
+            gap: 40px;
+            margin-bottom: 40px;
             flex-wrap: wrap;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 15px;
-            border-radius: 12px;
-            backdrop-filter: blur(5px);
+            padding: 20px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
         }
 
         .header-logos img {
-            height: 60px;
+            height: 50px;
             object-fit: contain;
             filter: brightness(0) invert(1);
+            transition: transform 0.3s ease;
+        }
+
+        .header-logos img:hover {
+            transform: scale(1.05);
         }
 
         .header h1 {
-            font-size: 2.5em;
+            font-size: 3.5em;
             margin-bottom: 10px;
             font-weight: 700;
+            letter-spacing: -1px;
         }
 
         .header p {
-            font-size: 1.1em;
+            font-size: 1.25em;
             opacity: 0.9;
-            margin-bottom: 5px;
+            font-weight: 300;
         }
 
         .header .badge {
             display: inline-block;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 8px 16px;
-            border-radius: 20px;
-            margin-top: 15px;
-            font-size: 0.9em;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 10px 24px;
+            border-radius: 100px;
+            margin-top: 25px;
+            font-size: 0.95em;
             font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-tabs-wrapper {
+            position: relative;
+            background: #fbfcfb;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .nav-tabs-wrapper::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 40px;
+            background: linear-gradient(to right, transparent, #fbfcfb);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        @media (min-width: 768px) {
+            .nav-tabs-wrapper::after {
+                display: none;
+            }
         }
 
         .nav-tabs {
             display: flex;
-            gap: 0;
-            border-bottom: 2px solid #eee;
-            overflow-x: auto;
-            background: #f8f9fa;
+            background: transparent;
             padding: 0 20px;
+            gap: 15px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            /* Firefox */
+            position: relative;
+        }
+
+        .nav-tabs::-webkit-scrollbar {
+            display: none;
+            /* Safari and Chrome */
         }
 
         .nav-tabs button {
-            flex: 1;
-            padding: 16px 20px;
+            padding: 20px 10px;
             border: none;
             background: transparent;
             cursor: pointer;
-            font-size: 1em;
+            font-size: 0.95rem;
             font-weight: 600;
-            color: #666;
+            color: var(--text-muted);
             border-bottom: 3px solid transparent;
             transition: all 0.3s ease;
             white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        @media (min-width: 768px) {
+            .nav-tabs {
+                padding: 0 40px;
+                gap: 30px;
+                justify-content: center;
+            }
+
+            .nav-tabs button {
+                padding: 24px 10px;
+                font-size: 1.05rem;
+            }
         }
 
         .nav-tabs button:hover {
-            color: #008f39;
-            background: rgba(0, 143, 57, 0.05);
+            color: var(--primary);
         }
 
         .nav-tabs button.active {
-            color: #008f39;
-            border-bottom-color: #008f39;
+            color: var(--primary);
+            border-bottom-color: var(--primary);
         }
 
         .content {
@@ -137,17 +222,21 @@
         }
 
         .intro-box {
-            background: linear-gradient(135deg, rgba(0, 74, 128, 0.08) 0%, rgba(0, 143, 57, 0.08) 100%);
-            border-left: 4px solid #008f39;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            font-size: 1.05em;
-            line-height: 1.6;
+            background: #fbfcfb;
+            border-left: 6px solid var(--primary);
+            padding: 30px;
+            border-radius: 0 16px 16px 0;
+            margin-bottom: 40px;
+            font-size: 1.15em;
+            color: var(--text-muted);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
         }
 
         .intro-box strong {
-            color: #004a80;
+            color: var(--primary);
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.2em;
         }
 
         .cards-grid {
@@ -159,55 +248,62 @@
 
         .card {
             background: white;
-            border: 2px solid #eee;
-            border-radius: 12px;
-            padding: 24px;
-            transition: all 0.3s ease;
-            cursor: pointer;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 32px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .card:hover {
-            border-color: #667eea;
-            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.15);
-            transform: translateY(-2px);
+            border-color: var(--primary-light);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+            transform: translateY(-5px);
         }
 
         .card-icon {
-            font-size: 2.5em;
-            margin-bottom: 12px;
+            font-size: 3em;
+            margin-bottom: 20px;
+            display: inline-block;
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
         }
 
         .card h3 {
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 1.3em;
+            color: var(--primary);
+            margin-bottom: 12px;
+            font-size: 1.4em;
+            font-weight: 700;
         }
 
         .card p {
-            color: #666;
-            line-height: 1.6;
-            margin: 0;
-            font-size: 0.95em;
+            color: var(--text-muted);
+            line-height: 1.7;
+            font-size: 1rem;
         }
 
         .stat-box {
-            background: linear-gradient(135deg, #004a80 0%, #008f39 100%);
-            color: white;
-            padding: 24px;
-            border-radius: 12px;
+            background: var(--white);
+            border: 1px solid #e2e8f0;
+            color: var(--text-dark);
+            padding: 35px 20px;
+            border-radius: 20px;
             text-align: center;
-            margin: 15px 0;
+            transition: all 0.3s ease;
         }
 
         .stat-box .number {
-            font-size: 2.5em;
+            font-size: 3.5em;
             font-weight: 700;
             margin-bottom: 8px;
+            color: var(--primary);
+            letter-spacing: -2px;
         }
 
         .stat-box .label {
             font-size: 1em;
-            opacity: 0.95;
+            color: var(--text-muted);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .table-container {
@@ -224,19 +320,26 @@
         }
 
         thead {
-            background: linear-gradient(135deg, #004a80 0%, #008f39 100%);
-            color: white;
+            background: #f8fafc;
+        }
+
+        th {
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
         }
 
         th,
         td {
-            padding: 14px;
+            padding: 20px 16px;
             text-align: left;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #f1f5f9;
         }
 
         tr:hover {
-            background: #f8f9fa;
+            background: #fcfdfc;
         }
 
         .priority-alto {
@@ -277,18 +380,21 @@
         .search-box select {
             flex: 1;
             min-width: 200px;
-            padding: 12px;
-            border: 2px solid #eee;
-            border-radius: 8px;
-            font-size: 1em;
-            transition: border-color 0.3s ease;
+            padding: 14px 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 0.95em;
+            background: #fbfcfb;
+            font-family: inherit;
+            transition: all 0.3s ease;
         }
 
         .search-box input:focus,
         .search-box select:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(26, 77, 46, 0.1);
+            background: white;
         }
 
         .timeline {
@@ -307,41 +413,42 @@
             content: '';
             position: absolute;
             left: 30px;
-            top: 50px;
-            bottom: -30px;
+            top: 70px;
+            bottom: -40px;
             width: 2px;
-            background: #eee;
-        }
-
-        .timeline-item:last-child::before {
-            display: none;
+            background: #e2e8f0;
         }
 
         .timeline-dot {
             width: 60px;
             height: 60px;
-            background: linear-gradient(135deg, #004a80 0%, #008f39 100%);
-            border-radius: 50%;
+            background: var(--primary);
+            border-radius: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.5em;
+            font-size: 1.4em;
+            font-weight: 700;
             flex-shrink: 0;
             z-index: 1;
+            box-shadow: 0 10px 15px -3px rgba(26, 77, 46, 0.2);
         }
 
         .timeline-content {
             margin-left: 30px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 8px;
+            padding: 30px;
+            background: #fbfcfb;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
             flex: 1;
         }
 
         .timeline-content h4 {
-            margin: 0 0 8px 0;
-            color: #333;
+            margin: 0 0 10px 0;
+            color: var(--primary);
+            font-size: 1.3em;
+            font-weight: 700;
         }
 
         .timeline-content p {
@@ -366,24 +473,24 @@
         }
 
         .accordion-header {
-            padding: 16px;
-            background: #f8f9fa;
+            padding: 24px;
+            background: white;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-weight: 600;
+            color: var(--primary);
             transition: all 0.3s ease;
         }
 
         .accordion-header:hover {
-            background: rgba(102, 126, 234, 0.05);
-            color: #667eea;
+            background: #fbfcfb;
         }
 
         .accordion-header.active {
-            background: linear-gradient(135deg, rgba(0, 74, 128, 0.08) 0%, rgba(0, 143, 57, 0.08) 100%);
-            color: #004a80;
+            background: #f1f5f9;
+            color: var(--primary);
         }
 
         .accordion-icon {
@@ -442,27 +549,24 @@
 
         .summary-item {
             background: white;
-            border: 2px solid #eee;
-            border-radius: 12px;
-            padding: 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 35px;
             text-align: center;
+            transition: all 0.3s ease;
         }
 
         .summary-item.highlight {
-            border-color: #667eea;
-            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
-        }
-
-        .summary-item h4 {
-            margin: 10px 0;
-            color: #333;
+            border-color: var(--primary-light);
+            background: #fbfcfb;
         }
 
         .summary-item .big-number {
-            font-size: 2em;
+            font-size: 3.5em;
             font-weight: 700;
-            color: #008f39;
-            margin: 10px 0;
+            color: var(--primary);
+            margin: 15px 0;
+            letter-spacing: -2px;
         }
 
         .summary-item p {
@@ -506,6 +610,105 @@
                 padding: 10px;
             }
         }
+
+        .footer {
+            background: #ffffff;
+            padding: 40px 20px;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-brand .title {
+            font-weight: 700;
+            color: var(--text-dark);
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-brand .subtitle {
+            font-size: 0.9em;
+            color: var(--text-muted);
+            max-width: 300px;
+            line-height: 1.5;
+        }
+
+        .footer-section h4 {
+            color: var(--text-dark);
+            font-size: 1em;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a,
+        .footer-contact-item {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            transform: translateX(3px);
+        }
+
+        .footer-icon {
+            color: var(--primary);
+            font-size: 1.1em;
+            width: 20px;
+            text-align: center;
+        }
+
+        .footer-bottom-bar {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #f8fafc;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8em;
+            color: #94a3b8;
+        }
+
+        @media (max-width: 768px) {
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .footer-bottom-bar {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
     </style>
 </head>
 
@@ -514,21 +717,23 @@
         <div class="header">
             <div class="header-logos">
                 <img src="Prefeitura_Bandeirantes_04.png" alt="Prefeitura de Bandeirantes">
-                <img src="Asset 11@4x.png" alt="Asset">
+                <img src="Logo_TI.png" alt="Logo TI">
                 <img src="Conecta@4x.png" alt="Conecta">
             </div>
             <h1>📋 PAC 2026</h1>
-            <p><strong>Plano de Contratações Anual</strong></p>
+            <p><strong>Plano Anual de Contratações</strong></p>
             <p>Prefeitura Municipal de Bandeirantes - MS</p>
             <div class="badge">135 Contratações Planejadas | Total: R$ 78+ Milhões</div>
         </div>
 
-        <div class="nav-tabs">
-            <button class="nav-btn active" data-tab="inicio">🏠 Início</button>
-            <button class="nav-btn" data-tab="entenda">📚 Entenda o PAC</button>
-            <button class="nav-btn" data-tab="contratacoes">💼 Contratações</button>
-            <button class="nav-btn" data-tab="cronograma">📅 Cronograma</button>
-            <button class="nav-btn" data-tab="perguntas">❓ Dúvidas</button>
+        <div class="nav-tabs-wrapper">
+            <div class="nav-tabs">
+                <button class="nav-btn active" data-tab="inicio">🏠 Início</button>
+                <button class="nav-btn" data-tab="entenda">📚 Entenda o PAC</button>
+                <button class="nav-btn" data-tab="contratacoes">💼 Contratações</button>
+                <button class="nav-btn" data-tab="cronograma">📅 Cronograma</button>
+                <button class="nav-btn" data-tab="perguntas">❓ Dúvidas</button>
+            </div>
         </div>
 
         <div class="content">
@@ -835,169 +1040,206 @@
                     </div>
                 </div>
 
-                <div
-                    style="background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%); border-left: 4px solid #667eea; padding: 20px; border-radius: 8px; margin-top: 40px;">
-                    <h3 style="margin-top: 0; color: #667eea;">📞 Mais Informações?</h3>
-                    <p>Para dúvidas sobre o PAC 2026, entre em contato com a Prefeitura de Bandeirantes:</p>
-                    <p><strong>Setor de Contratações e Licitações</strong><br>
-                        Secretaria Municipal de Administração</p>
-                </div>
             </div>
+
+            <footer class="footer">
+                <div class="footer-container">
+                    <div class="footer-brand">
+                        <div class="title">
+                            <span
+                                style="background: var(--primary); color: white; padding: 5px; border-radius: 6px; font-size: 0.8em;">🏢</span>
+                            PAC 2026 - Bandeirantes - MS
+                        </div>
+                        <div class="subtitle">
+                            Plano Anual de Contratações da Prefeitura Municipal de Bandeirantes/MS.
+                            Transparência e eficiência na gestão pública.
+                        </div>
+                    </div>
+
+                    <div class="footer-section">
+                        <h4>Contato</h4>
+                        <ul class="footer-links">
+                            <li class="footer-contact-item"><span class="footer-icon">📍</span> Bandeirantes - MS</li>
+                            <li><a href="https://whatsa.me/5567996410477/?t=Ol%C3%A1%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20o%20PAC%202026"
+                                    target="_blank"><span class="footer-icon">📱</span> (67) 99641-0477</a></li>
+                            <li><a href="mailto:administracao@bandeirantes.ms.gov.br"><span
+                                        class="footer-icon">✉️</span> administracao@bandeirantes.ms.gov.br</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-section">
+                        <h4>Links Úteis</h4>
+                        <ul class="footer-links">
+                            <li><a href="https://bandeirantes.ms.gov.br/v2/ouvidoria-inicio/" target="_blank"><span
+                                        class="footer-icon">📢</span> Ouvidoria</a></li>
+                            <li><a href="https://web.qualitysistemas.com.br/portal/transparencia_publica/prefeitura_municipal_de_bandeirantes"
+                                    target="_blank"><span class="footer-icon">📊</span> Transparência</a></li>
+                            <li><a href="https://web.qualitysistemas.com.br/portal/servicos_a_populacao/prefeitura_municipal_de_bandeirantes"
+                                    target="_blank"><span class="footer-icon">🤝</span> Fornecedores</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="footer-bottom-bar">
+                    <div>2026 © Prefeitura Municipal de Bandeirantes - MS</div>
+                    <div style="font-weight: 600; color: var(--primary);">Orgulhosamente criado pelo Departamento de TI
+                        ⚡</div>
+                </div>
+            </footer>
         </div>
-    </div>
 
-    <script>
-        // Dados das contratações
-        const contracts = [
-            { codigo: 'PCA1', objeto: 'Aquisição de Ovos de Páscoa', secretaria: 'SEMAS, SEMED', tipo: 'Material', classificacao: 'Consumo', valor: 59611.20, conclusao: 'Abril', prioridade: 'Baixo' },
-            { codigo: 'PCA2', objeto: 'Manutenção de Ar Condicionado', secretaria: 'SEMAD, SEMAS', tipo: 'Serviço', classificacao: '-', valor: 622284.06, conclusao: 'Abril', prioridade: 'Baixo' },
-            { codigo: 'PCA3', objeto: 'Coleta de Lixo Hospitalar', secretaria: 'SEMUSA', tipo: 'Serviço', classificacao: '-', valor: 168261.48, conclusao: 'Abril', prioridade: 'Alto' },
-            { codigo: 'PCA4', objeto: 'Software de Gestão Escolar', secretaria: 'SEMED', tipo: 'Serviço', classificacao: '-', valor: 12600.00, conclusao: 'Março', prioridade: 'Médio' },
-            { codigo: 'PCA5', objeto: 'Kits de Uniformes Escolares', secretaria: 'SEMED', tipo: 'Material', classificacao: 'Permanente', valor: 245000.00, conclusao: 'Janeiro', prioridade: 'Alto' },
-            { codigo: 'PCA6', objeto: 'Materiais de Educação Especial', secretaria: 'SEMED', tipo: 'Material', classificacao: 'Permanente', valor: 85000.00, conclusao: 'Fevereiro', prioridade: 'Médio' },
-            { codigo: 'PCA7', objeto: 'Locação de Equipamentos de Informática', secretaria: 'UNIFICADO', tipo: 'Serviço', classificacao: '-', valor: 711300.00, conclusao: 'Março', prioridade: 'Alto' },
-            { codigo: 'PCA8', objeto: 'Exames Laboratoriais', secretaria: 'SEMUSA', tipo: 'Serviço', classificacao: '-', valor: 423591.57, conclusao: 'Março', prioridade: 'Alto' },
-            { codigo: 'PCA9', objeto: 'Serviços de Radiologia', secretaria: 'SEMUSA', tipo: 'Serviço', classificacao: '-', valor: 156800.00, conclusao: 'Abril', prioridade: 'Alto' },
-            { codigo: 'PCA10', objeto: 'Equipamentos Médicos Hospitalares', secretaria: 'SEMUSA', tipo: 'Material', classificacao: 'Permanente', valor: 450000.00, conclusao: 'Junho', prioridade: 'Alto' },
-            { codigo: 'PCA11', objeto: 'Insumos de Laboratório Clínico', secretaria: 'SEMUSA', tipo: 'Material', classificacao: 'Consumo', valor: 280000.00, conclusao: 'Fevereiro', prioridade: 'Alto' },
-            { codigo: 'PCA12', objeto: 'Material de Papelaria', secretaria: 'UNIFICADO', tipo: 'Material', classificacao: 'Consumo', valor: 667000.00, conclusao: 'Maio', prioridade: 'Médio' },
-            { codigo: 'PCA13', objeto: 'Serviços de Limpeza e Higienização', secretaria: 'SEMAM', tipo: 'Serviço', classificacao: '-', valor: 890000.00, conclusao: 'Janeiro', prioridade: 'Alto' },
-            { codigo: 'PCA14', objeto: 'Produtos de Higiene Pessoal e Limpeza', secretaria: 'SEMAM', tipo: 'Material', classificacao: 'Consumo', valor: 125000.00, conclusao: 'Março', prioridade: 'Alto' },
-            { codigo: 'PCA15', objeto: 'Combustível por Cartão Magnético', secretaria: 'SEMAS, SEMDETUR', tipo: 'Serviço', classificacao: '-', valor: 3141484.00, conclusao: 'Maio', prioridade: 'Alto' },
-            { codigo: 'PCA16', objeto: 'Peças e Acessórios Automotivos', secretaria: 'SEMAS', tipo: 'Material', classificacao: 'Permanente', valor: 320000.00, conclusao: 'Junho', prioridade: 'Médio' },
-            { codigo: 'PCA17', objeto: 'Serviços de Consultoria Jurídica', secretaria: 'SEMAD', tipo: 'Serviço', classificacao: '-', valor: 180000.00, conclusao: 'Fevereiro', prioridade: 'Médio' },
-            { codigo: 'PCA18', objeto: 'Aluguel de Imóvel para Secretaria', secretaria: 'SEMAD', tipo: 'Serviço', classificacao: '-', valor: 450000.00, conclusao: 'Janeiro', prioridade: 'Alto' },
-            { codigo: 'PCA19', objeto: 'Serviços de Auditoria e Consultoria', secretaria: 'SEMAD', tipo: 'Serviço', classificacao: '-', valor: 220000.00, conclusao: 'Maio', prioridade: 'Médio' },
-            { codigo: 'PCA20', objeto: 'Assinatura de Software de Gestão Administrativa', secretaria: 'SEMAD', tipo: 'Serviço', classificacao: '-', valor: 89000.00, conclusao: 'Janeiro', prioridade: 'Alto' },
-            { codigo: 'PCA21', objeto: 'Material de Construção para Reparos', secretaria: 'SEMOB', tipo: 'Material', classificacao: 'Consumo', valor: 156000.00, conclusao: 'Março', prioridade: 'Médio' },
-            { codigo: 'PCA22', objeto: 'Serviços de Engenharia e Topografia', secretaria: 'SEMOB', tipo: 'Serviço', classificacao: '-', valor: 250000.00, conclusao: 'Fevereiro', prioridade: 'Médio' },
-            { codigo: 'PCA23', objeto: 'Construção da UBS Silvino de Barros', secretaria: 'SEMUSA', tipo: 'Serviço', classificacao: '-', valor: 1881388.07, conclusao: 'Maio', prioridade: 'Alto' },
-            { codigo: 'PCA24', objeto: 'Reforma da Escola Municipal Centro', secretaria: 'SEMED', tipo: 'Serviço', classificacao: '-', valor: 850000.00, conclusao: 'Abril', prioridade: 'Alto' },
-            { codigo: 'PCA25', objeto: 'Pavimentação Asfáltica de Ruas', secretaria: 'SEMOB', tipo: 'Serviço', classificacao: '-', valor: 1500000.00, conclusao: 'Julho', prioridade: 'Alto' },
-            { codigo: 'PCA26', objeto: 'Iluminação Pública com LED', secretaria: 'SEMOB', tipo: 'Material', classificacao: 'Permanente', valor: 380000.00, conclusao: 'Junho', prioridade: 'Alto' },
-            { codigo: 'PCA27', objeto: 'Serviços de Segurança Patrimonial', secretaria: 'SEMAP', tipo: 'Serviço', classificacao: '-', valor: 420000.00, conclusao: 'Janeiro', prioridade: 'Alto' },
-            { codigo: 'PCA28', objeto: 'Equipamentos de Proteção Individual', secretaria: 'SEMAP', tipo: 'Material', classificacao: 'Permanente', valor: 65000.00, conclusao: 'Fevereiro', prioridade: 'Médio' },
-            { codigo: 'PCA29', objeto: 'Viaturas e Motos para Polícia', secretaria: 'SEMAP', tipo: 'Material', classificacao: 'Permanente', valor: 750000.00, conclusao: 'Agosto', prioridade: 'Alto' },
-            { codigo: 'PCA30', objeto: 'Serviços de Catering para Eventos', secretaria: 'SEMAS', tipo: 'Serviço', classificacao: '-', valor: 95000.00, conclusao: 'Abril', prioridade: 'Baixo' },
-            { codigo: 'PCA31', objeto: 'Aquisição de Alimentos para Cestas Básicas', secretaria: 'SEMAS', tipo: 'Material', classificacao: 'Consumo', valor: 385000.00, conclusao: 'Fevereiro', prioridade: 'Alto' },
-            { codigo: 'PCA32', objeto: 'Serviços de Transporte de Pessoas', secretaria: 'SEMAS', tipo: 'Serviço', classificacao: '-', valor: 280000.00, conclusao: 'Março', prioridade: 'Médio' },
-            { codigo: 'PCA33', objeto: 'Medicamentos para Programa de Saúde da Mulher', secretaria: 'SEMUSA', tipo: 'Material', classificacao: 'Consumo', valor: 120000.00, conclusao: 'Fevereiro', prioridade: 'Alto' },
-            { codigo: 'PCA34', objeto: 'Órteses e Próteses Dinâmicas', secretaria: 'SEMUSA', tipo: 'Material', classificacao: 'Permanente', valor: 180000.00, conclusao: 'Maio', prioridade: 'Alto' },
-            { codigo: 'PCA35', objeto: 'Cadeiras de Rodas e Muletas', secretaria: 'SEMUSA', tipo: 'Material', classificacao: 'Permanente', valor: 95000.00, conclusao: 'Março', prioridade: 'Médio' },
-            { codigo: 'PCA36', objeto: 'Serviços de Fisioterapia Contratada', secretaria: 'SEMUSA', tipo: 'Serviço', classificacao: '-', valor: 156000.00, conclusao: 'Abril', prioridade: 'Médio' },
-            { codigo: 'PCA37', objeto: 'Bolsas de Estudo para Alunos', secretaria: 'SEMED', tipo: 'Serviço', classificacao: '-', valor: 580000.00, conclusao: 'Janeiro', prioridade: 'Alto' },
-            { codigo: 'PCA38', objeto: 'Livros Didáticos para Escolas', secretaria: 'SEMED', tipo: 'Material', classificacao: 'Permanente', valor: 420000.00, conclusao: 'Fevereiro', prioridade: 'Alto' },
-            { codigo: 'PCA39', objeto: 'Computadores e Tablets para Educação', secretaria: 'SEMED', tipo: 'Material', classificacao: 'Permanente', valor: 680000.00, conclusao: 'Março', prioridade: 'Alto' },
-            { codigo: 'PCA40', objeto: 'Laboratório de Ciências Equipamentos', secretaria: 'SEMED', tipo: 'Material', classificacao: 'Permanente', valor: 250000.00, conclusao: 'Maio', prioridade: 'Médio' },
-            { codigo: 'PCA41', objeto: 'Serviços de Educação Continuada', secretaria: 'SEMED', tipo: 'Serviço', classificacao: '-', valor: 180000.00, conclusao: 'Junho', prioridade: 'Médio' },
-            { codigo: 'PCA42', objeto: 'Programa de Alimentação Escolar', secretaria: 'SEMED', tipo: 'Serviço', classificacao: '-', valor: 2800000.00, conclusao: 'Dezembro', prioridade: 'Alto' },
-            { codigo: 'PCA43', objeto: 'Manutenção de Veículos', secretaria: 'SEMAS, SEMAP', tipo: 'Serviço', classificacao: '-', valor: 3600000.00, conclusao: 'Julho', prioridade: 'Alto' },
-            { codigo: 'PCA44', objeto: 'Pneus e Rodas para Veículos', secretaria: 'SEMAS', tipo: 'Material', classificacao: 'Permanente', valor: 145000.00, conclusao: 'Junho', prioridade: 'Médio' },
-            { codigo: 'PCA45', objeto: 'Óleos e Lubrificantes', secretaria: 'SEMAS', tipo: 'Material', classificacao: 'Consumo', valor: 78000.00, conclusao: 'Abril', prioridade: 'Médio' },
-            { codigo: 'PCA46', objeto: 'Serviços de Monitoramento de Frota', secretaria: 'SEMAS', tipo: 'Serviço', classificacao: '-', valor: 95000.00, conclusao: 'Maio', prioridade: 'Médio' },
-            { codigo: 'PCA47', objeto: 'GPS e Rastreadores Veiculares', secretaria: 'SEMAS', tipo: 'Material', classificacao: 'Permanente', valor: 85000.00, conclusao: 'Fevereiro', prioridade: 'Médio' },
-            { codigo: 'PCA48', objeto: 'Uniformes para Servidores Públicos', secretaria: 'SEMAD', tipo: 'Material', classificacao: 'Permanente', valor: 280000.00, conclusao: 'Março', prioridade: 'Médio' },
-            { codigo: 'PCA49', objeto: 'Equipamentos de Informática para Prefeitura', secretaria: 'SEMAD', tipo: 'Material', classificacao: 'Permanente', valor: 520000.00, conclusao: 'Fevereiro', prioridade: 'Alto' },
-            { codigo: 'PCA50', objeto: 'Credenciamento de Serviços Médicos', secretaria: 'SEMUSA', tipo: 'Serviço', classificacao: '-', valor: 3500000.00, conclusao: 'Julho', prioridade: 'Alto' },
-            { codigo: 'PCA51', objeto: 'Contratação de Profissionais de Saúde', secretaria: 'SEMUSA', tipo: 'Serviço', classificacao: '-', valor: 1200000.00, conclusao: 'Janeiro', prioridade: 'Alto' },
-            { codigo: 'PCA52', objeto: 'Serviços de Vigilância Epidemiológica', secretaria: 'SEMUSA', tipo: 'Serviço', classificacao: '-', valor: 180000.00, conclusao: 'Fevereiro', prioridade: 'Alto' },
-            { codigo: 'PCA53', objeto: 'Vacinas e Imunobiológicos', secretaria: 'SEMUSA', tipo: 'Material', classificacao: 'Consumo', valor: 320000.00, conclusao: 'Janeiro', prioridade: 'Alto' },
-            { codigo: 'PCA54', objeto: 'Coleta e Transporte de Sangue', secretaria: 'SEMUSA', tipo: 'Serviço', classificacao: '-', valor: 95000.00, conclusao: 'Março', prioridade: 'Alto' },
-            { codigo: 'PCA55', objeto: 'Serviços de Odontologia', secretaria: 'SEMUSA', tipo: 'Serviço', classificacao: '-', valor: 250000.00, conclusao: 'Fevereiro', prioridade: 'Alto' },
-            { codigo: 'PCA56', objeto: 'Próteses Dentárias', secretaria: 'SEMUSA', tipo: 'Material', classificacao: 'Permanente', valor: 125000.00, conclusao: 'Abril', prioridade: 'Médio' },
-            { codigo: 'PCA57', objeto: 'Serviços de Psicologia e Psiquiatria', secretaria: 'SEMUSA', tipo: 'Serviço', classificacao: '-', valor: 180000.00, conclusao: 'Março', prioridade: 'Médio' },
-            { codigo: 'PCA58', objeto: 'Medicamentos Controlados', secretaria: 'SEMUSA', tipo: 'Material', classificacao: 'Consumo', valor: 156000.00, conclusao: 'Março', prioridade: 'Alto' },
-            { codigo: 'PCA59', objeto: 'Ambulância e Equipamentos de Resgate', secretaria: 'SEMUSA', tipo: 'Material', classificacao: 'Permanente', valor: 380000.00, conclusao: 'Junho', prioridade: 'Alto' },
-            { codigo: 'PCA60', objeto: 'Serviços de Manutenção Preventiva', secretaria: 'SEMUSA', tipo: 'Serviço', classificacao: '-', valor: 125000.00, conclusao: 'Maio', prioridade: 'Médio' },
-            { codigo: 'PCA61', objeto: 'Serviços de Transporte de Pacientes', secretaria: 'SEMUSA', tipo: 'Serviço', classificacao: '-', valor: 280000.00, conclusao: 'Julho', prioridade: 'Médio' },
-            { codigo: 'PCA62', objeto: 'Medicamentos Farmácia Básica', secretaria: 'SEMUSA', tipo: 'Material', classificacao: 'Consumo', valor: 1145845.22, conclusao: 'Agosto', prioridade: 'Alto' },
-            { codigo: 'PCA63', objeto: 'Medicamentos Injetáveis', secretaria: 'SEMUSA', tipo: 'Material', classificacao: 'Consumo', valor: 486226.00, conclusao: 'Agosto', prioridade: 'Alto' },
-            { codigo: 'PCA64', objeto: 'Material Hospitalar', secretaria: 'SEMUSA', tipo: 'Serviço', classificacao: '-', valor: 1873651.82, conclusao: 'Agosto', prioridade: 'Alto' },
-            { codigo: 'PCA65', objeto: 'Gases Medicinais', secretaria: 'SEMUSA', tipo: 'Material', classificacao: 'Consumo', valor: 95000.00, conclusao: 'Fevereiro', prioridade: 'Alto' },
-            { codigo: 'PCA66', objeto: 'Serviços de Limpeza Hospitalar', secretaria: 'SEMUSA', tipo: 'Serviço', classificacao: '-', valor: 156000.00, conclusao: 'Janeiro', prioridade: 'Alto' },
-            { codigo: 'PCA67', objeto: 'Desinfetantes e Antissépticos', secretaria: 'SEMUSA', tipo: 'Material', classificacao: 'Consumo', valor: 85000.00, conclusao: 'Fevereiro', prioridade: 'Alto' },
-            { codigo: 'PCA68', objeto: 'Serviços de Comunicação Visual', secretaria: 'SEMAS', tipo: 'Serviço', classificacao: '-', valor: 125000.00, conclusao: 'Abril', prioridade: 'Baixo' },
-            { codigo: 'PCA69', objeto: 'Impressoras e Copiadoras', secretaria: 'UNIFICADO', tipo: 'Material', classificacao: 'Permanente', valor: 180000.00, conclusao: 'Março', prioridade: 'Médio' },
-            { codigo: 'PCA70', objeto: 'Cartuchos e Toner para Impressoras', secretaria: 'UNIFICADO', tipo: 'Material', classificacao: 'Consumo', valor: 95000.00, conclusao: 'Junho', prioridade: 'Médio' },
-            { codigo: 'PCA71', objeto: 'Serviços de Telemarketing', secretaria: 'SEMAD', tipo: 'Serviço', classificacao: '-', valor: 145000.00, conclusao: 'Maio', prioridade: 'Médio' },
-            { codigo: 'PCA72', objeto: 'Telefonia e Internet', secretaria: 'SEMAD', tipo: 'Serviço', classificacao: '-', valor: 280000.00, conclusao: 'Janeiro', prioridade: 'Alto' },
-            { codigo: 'PCA73', objeto: 'Serviços de TV Corporativa', secretaria: 'SEMAD', tipo: 'Serviço', classificacao: '-', valor: 85000.00, conclusao: 'Fevereiro', prioridade: 'Baixo' },
-            { codigo: 'PCA74', objeto: 'Mobiliário para Órgãos Públicos', secretaria: 'UNIFICADO', tipo: 'Material', classificacao: 'Permanente', valor: 420000.00, conclusao: 'Abril', prioridade: 'Médio' },
-            { codigo: 'PCA75', objeto: 'Estações de Trabalho', secretaria: 'SEMAD', tipo: 'Material', classificacao: 'Permanente', valor: 380000.00, conclusao: 'Março', prioridade: 'Médio' },
-            { codigo: 'PCA76', objeto: 'Serviços de Manutenção de Ar Condicionado', secretaria: 'UNIFICADO', tipo: 'Serviço', classificacao: '-', valor: 250000.00, conclusao: 'Fevereiro', prioridade: 'Médio' },
-            { codigo: 'PCA77', objeto: 'Peças de Reposição para Ar Condicionado', secretaria: 'UNIFICADO', tipo: 'Material', classificacao: 'Permanente', valor: 95000.00, conclusao: 'Março', prioridade: 'Médio' },
-            { codigo: 'PCA78', objeto: 'Serviços de Eletricidade e Hidráulica', secretaria: 'SEMOB', tipo: 'Serviço', classificacao: '-', valor: 180000.00, conclusao: 'Abril', prioridade: 'Médio' },
-            { codigo: 'PCA79', objeto: 'Materiais Elétricos e Hidráulicos', secretaria: 'SEMOB', tipo: 'Material', classificacao: 'Permanente', valor: 125000.00, conclusao: 'Maio', prioridade: 'Médio' },
-            { codigo: 'PCA80', objeto: 'Serviços de Pintura e Decoração', secretaria: 'SEMOB', tipo: 'Serviço', classificacao: '-', valor: 145000.00, conclusao: 'Junho', prioridade: 'Baixo' },
-            { codigo: 'PCA81', objeto: 'Tintas e Materiais de Pintura', secretaria: 'SEMOB', tipo: 'Material', classificacao: 'Consumo', valor: 65000.00, conclusao: 'Junho', prioridade: 'Baixo' },
-            { codigo: 'PCA82', objeto: 'Plantio de Árvores e Paisagismo', secretaria: 'SEMAM', tipo: 'Serviço', classificacao: '-', valor: 280000.00, conclusao: 'Maio', prioridade: 'Médio' },
-            { codigo: 'PCA83', objeto: 'Sementes e Mudas para Paisagismo', secretaria: 'SEMAM', tipo: 'Material', classificacao: 'Consumo', valor: 95000.00, conclusao: 'Março', prioridade: 'Médio' },
-            { codigo: 'PCA84', objeto: 'Serviços de Podação e Capinação', secretaria: 'SEMAM', tipo: 'Serviço', classificacao: '-', valor: 156000.00, conclusao: 'Junho', prioridade: 'Médio' },
-            { codigo: 'PCA85', objeto: 'Ferramentas para Manutenção de Áreas Verdes', secretaria: 'SEMAM', tipo: 'Material', classificacao: 'Permanente', valor: 78000.00, conclusao: 'Fevereiro', prioridade: 'Baixo' },
-            { codigo: 'PCA86', objeto: 'Serviços de Coleta de Resíduos Sólidos', secretaria: 'SEMAM', tipo: 'Serviço', classificacao: '-', valor: 1450000.00, conclusao: 'Janeiro', prioridade: 'Alto' },
-            { codigo: 'PCA87', objeto: 'Sacos e Contêineres para Resíduos', secretaria: 'SEMAM', tipo: 'Material', classificacao: 'Consumo', valor: 125000.00, conclusao: 'Fevereiro', prioridade: 'Alto' },
-            { codigo: 'PCA88', objeto: 'Aterro Sanitário e Disposição de Resíduos', secretaria: 'SEMAM', tipo: 'Serviço', classificacao: '-', valor: 380000.00, conclusao: 'Dezembro', prioridade: 'Alto' },
-            { codigo: 'PCA89', objeto: 'Serviços de Reciclagem', secretaria: 'SEMAM', tipo: 'Serviço', classificacao: '-', valor: 95000.00, conclusao: 'Abril', prioridade: 'Médio' },
-            { codigo: 'PCA90', objeto: 'Ecopontos e Containers', secretaria: 'SEMAM', tipo: 'Material', classificacao: 'Permanente', valor: 180000.00, conclusao: 'Março', prioridade: 'Médio' },
-            { codigo: 'PCA91', objeto: 'Serviços de Dragagem de Rio', secretaria: 'SEMOB', tipo: 'Serviço', classificacao: '-', valor: 420000.00, conclusao: 'Julho', prioridade: 'Médio' },
-            { codigo: 'PCA92', objeto: 'Materiais para Contenção de Enchentes', secretaria: 'SEMOB', tipo: 'Material', classificacao: 'Permanente', valor: 250000.00, conclusao: 'Fevereiro', prioridade: 'Alto' },
-            { codigo: 'PCA93', objeto: 'Serviços de Drenagem Urbana', secretaria: 'SEMOB', tipo: 'Serviço', classificacao: '-', valor: 380000.00, conclusao: 'Agosto', prioridade: 'Alto' },
-            { codigo: 'PCA94', objeto: 'Merenda Escolar', secretaria: 'SEMED', tipo: 'Material', classificacao: 'Consumo', valor: 1151031.23, conclusao: 'Dezembro', prioridade: 'Alto' },
-            { codigo: 'PCA95', objeto: 'Ingredientes para Cozinhas Escolares', secretaria: 'SEMED', tipo: 'Material', classificacao: 'Consumo', valor: 580000.00, conclusao: 'Junho', prioridade: 'Alto' },
-            { codigo: 'PCA96', objeto: 'Panelas e Utensílios de Cozinha', secretaria: 'SEMED', tipo: 'Material', classificacao: 'Permanente', valor: 95000.00, conclusao: 'Março', prioridade: 'Médio' },
-            { codigo: 'PCA97', objeto: 'Serviços de Consultoria Educacional', secretaria: 'SEMED', tipo: 'Serviço', classificacao: '-', valor: 180000.00, conclusao: 'Abril', prioridade: 'Médio' },
-            { codigo: 'PCA98', objeto: 'Programa de Reforço Escolar', secretaria: 'SEMED', tipo: 'Serviço', classificacao: '-', valor: 320000.00, conclusao: 'Fevereiro', prioridade: 'Médio' },
-            { codigo: 'PCA99', objeto: 'Materiais Pedagógicos Diversos', secretaria: 'SEMED', tipo: 'Material', classificacao: 'Permanente', valor: 145000.00, conclusao: 'Janeiro', prioridade: 'Médio' },
-            { codigo: 'PCA100', objeto: 'Instrumentos Musicais para Escolas', secretaria: 'SEMED', tipo: 'Material', classificacao: 'Permanente', valor: 95000.00, conclusao: 'Maio', prioridade: 'Médio' },
-            { codigo: 'PCA101', objeto: 'Serviços de Educação Física', secretaria: 'SEMED', tipo: 'Serviço', classificacao: '-', valor: 125000.00, conclusao: 'Junho', prioridade: 'Médio' },
-            { codigo: 'PCA102', objeto: 'Equipamentos de Educação Física', secretaria: 'SEMED', tipo: 'Material', classificacao: 'Permanente', valor: 180000.00, conclusao: 'Abril', prioridade: 'Médio' },
-            { codigo: 'PCA103', objeto: 'Serviços de Transporte de Funcionários', secretaria: 'SEMAS', tipo: 'Serviço', classificacao: '-', valor: 156000.00, conclusao: 'Janeiro', prioridade: 'Médio' },
-            { codigo: 'PCA104', objeto: 'Cartão VT para Servidores', secretaria: 'SEMAS', tipo: 'Serviço', classificacao: '-', valor: 420000.00, conclusao: 'Janeiro', prioridade: 'Alto' },
-            { codigo: 'PCA105', objeto: 'Serviços de Alimentação de Servidores', secretaria: 'SEMAS', tipo: 'Serviço', classificacao: '-', valor: 280000.00, conclusao: 'Janeiro', prioridade: 'Médio' },
-            { codigo: 'PCA106', objeto: 'Cartão Refeição para Funcionários', secretaria: 'SEMAS', tipo: 'Serviço', classificacao: '-', valor: 580000.00, conclusao: 'Janeiro', prioridade: 'Alto' },
-            { codigo: 'PCA107', objeto: 'Programa de Saúde do Servidor', secretaria: 'SEMADA', tipo: 'Serviço', classificacao: '-', valor: 250000.00, conclusao: 'Fevereiro', prioridade: 'Médio' },
-            { codigo: 'PCA108', objeto: 'Ginástica Laboral para Servidores', secretaria: 'SEMAS', tipo: 'Serviço', classificacao: '-', valor: 95000.00, conclusao: 'Março', prioridade: 'Baixo' },
-            { codigo: 'PCA109', objeto: 'Serviços de Recrutamento e Seleção', secretaria: 'SEMAS', tipo: 'Serviço', classificacao: '-', valor: 180000.00, conclusao: 'Fevereiro', prioridade: 'Médio' },
-            { codigo: 'PCA110', objeto: 'Cursos de Capacitação de Pessoal', secretaria: 'SEMAS', tipo: 'Serviço', classificacao: '-', valor: 320000.00, conclusao: 'Abril', prioridade: 'Médio' },
-            { codigo: 'PCA111', objeto: 'Transporte Escolar', secretaria: 'SEMED', tipo: 'Serviço', classificacao: '-', valor: 6200000.00, conclusao: 'Janeiro', prioridade: 'Alto' },
-            { codigo: 'PCA112', objeto: 'Cartão Transporte para Alunos', secretaria: 'SEMED', tipo: 'Serviço', classificacao: '-', valor: 1450000.00, conclusao: 'Janeiro', prioridade: 'Alto' },
-            { codigo: 'PCA113', objeto: 'Manutenção de Ônibus Escolares', secretaria: 'SEMED', tipo: 'Serviço', classificacao: '-', valor: 380000.00, conclusao: 'Agosto', prioridade: 'Médio' },
-            { codigo: 'PCA114', objeto: 'Ônibus Escolar Novos', secretaria: 'SEMED', tipo: 'Material', classificacao: 'Permanente', valor: 1200000.00, conclusao: 'Junho', prioridade: 'Alto' },
-            { codigo: 'PCA115', objeto: 'Rastreamento de Ônibus Escolares', secretaria: 'SEMED', tipo: 'Serviço', classificacao: '-', valor: 95000.00, conclusao: 'Fevereiro', prioridade: 'Médio' },
-            { codigo: 'PCA116', objeto: 'Seguro de Ônibus Escolares', secretaria: 'SEMED', tipo: 'Serviço', classificacao: '-', valor: 280000.00, conclusao: 'Janeiro', prioridade: 'Alto' },
-            { codigo: 'PCA117', objeto: 'Construção de 2 Pontes de Concreto', secretaria: 'SEMOB', tipo: 'Serviço', classificacao: '-', valor: 1245600.00, conclusao: 'Janeiro', prioridade: 'Alto' },
-            { codigo: 'PCA118', objeto: 'Duplicação de Rodovia Municipal', secretaria: 'SEMOB', tipo: 'Serviço', classificacao: '-', valor: 2500000.00, conclusao: 'Setembro', prioridade: 'Alto' },
-            { codigo: 'PCA119', objeto: 'Calçamento de Ruas e Avenidas', secretaria: 'SEMOB', tipo: 'Serviço', classificacao: '-', valor: 850000.00, conclusao: 'Julho', prioridade: 'Alto' },
-            { codigo: 'PCA120', objeto: 'Sinalização Horizontal e Vertical', secretaria: 'SEMOB', tipo: 'Serviço', classificacao: '-', valor: 156000.00, conclusao: 'Maio', prioridade: 'Médio' },
-            { codigo: 'PCA121', objeto: 'Semáforos Inteligentes', secretaria: 'SEMOB', tipo: 'Material', classificacao: 'Permanente', valor: 320000.00, conclusao: 'Junho', prioridade: 'Médio' },
-            { codigo: 'PCA122', objeto: 'Construção de Centro de Educação Infantil', secretaria: 'SEMED', tipo: 'Serviço', classificacao: '-', valor: 10000000.00, conclusao: 'Janeiro', prioridade: 'Alto' },
-            { codigo: 'PCA123', objeto: 'Construção de Escola em Tempo Integral', secretaria: 'SEMED', tipo: 'Serviço', classificacao: '-', valor: 10000000.00, conclusao: 'Janeiro', prioridade: 'Alto' },
-            { codigo: 'PCA124', objeto: 'Reforma de Quadra Esportiva', secretaria: 'SEMAS', tipo: 'Serviço', classificacao: '-', valor: 450000.00, conclusao: 'Julho', prioridade: 'Médio' },
-            { codigo: 'PCA125', objeto: 'Construção de Piscina Pública', secretaria: 'SEMAS', tipo: 'Serviço', classificacao: '-', valor: 1800000.00, conclusao: 'Setembro', prioridade: 'Alto' },
-            { codigo: 'PCA126', objeto: 'Parque Temático com Equipamentos', secretaria: 'SEMAS', tipo: 'Material', classificacao: 'Permanente', valor: 520000.00, conclusao: 'Agosto', prioridade: 'Médio' },
-            { codigo: 'PCA127', objeto: 'Reforma de Casa de Cultura', secretaria: 'SEMAS', tipo: 'Serviço', classificacao: '-', valor: 380000.00, conclusao: 'Junho', prioridade: 'Médio' },
-            { codigo: 'PCA128', objeto: 'Biblioteca Pública - Acervo', secretaria: 'SEMAS', tipo: 'Material', classificacao: 'Permanente', valor: 180000.00, conclusao: 'Abril', prioridade: 'Médio' },
-            { codigo: 'PCA129', objeto: 'Construção de Creche e Pré-escola', secretaria: 'SEMED', tipo: 'Serviço', classificacao: '-', valor: 10000000.00, conclusao: 'Janeiro', prioridade: 'Alto' },
-            { codigo: 'PCA130', objeto: 'Adequação de Acessibilidade em Prédios', secretaria: 'SEMOB', tipo: 'Serviço', classificacao: '-', valor: 420000.00, conclusao: 'Julho', prioridade: 'Alto' },
-            { codigo: 'PCA131', objeto: 'Elevadores para Acessibilidade', secretaria: 'SEMOB', tipo: 'Material', classificacao: 'Permanente', valor: 280000.00, conclusao: 'Junho', prioridade: 'Médio' },
-            { codigo: 'PCA132', objeto: 'Rampas de Acesso para Deficientes', secretaria: 'SEMOB', tipo: 'Serviço', classificacao: '-', valor: 156000.00, conclusao: 'Maio', prioridade: 'Alto' },
-            { codigo: 'PCA133', objeto: 'Banheiros Acessíveis em Prédios', secretaria: 'SEMOB', tipo: 'Serviço', classificacao: '-', valor: 180000.00, conclusao: 'Junho', prioridade: 'Médio' },
-            { codigo: 'PCA134', objeto: 'Estacionamento para Deficientes', secretaria: 'SEMOB', tipo: 'Serviço', classificacao: '-', valor: 95000.00, conclusao: 'Maio', prioridade: 'Baixo' },
-            { codigo: 'PCA135', objeto: 'Auditoria Interna e Gestão', secretaria: 'SEMAD', tipo: 'Serviço', classificacao: '-', valor: 145000.00, conclusao: 'Dezembro', prioridade: 'Médio' },
-        ];
+        <script>
+            // Dados das contratações
+            const contracts = [
+                { codigo: 'PCA1', objeto: 'Aquisição de Ovos de Páscoa', secretaria: 'SEMAS, SEMED', tipo: 'Material', classificacao: 'Consumo', valor: 59611.20, conclusao: 'Abril', prioridade: 'Baixo' },
+                { codigo: 'PCA2', objeto: 'Manutenção de Ar Condicionado', secretaria: 'SEMAD, SEMAS', tipo: 'Serviço', classificacao: '-', valor: 622284.06, conclusao: 'Abril', prioridade: 'Baixo' },
+                { codigo: 'PCA3', objeto: 'Coleta de Lixo Hospitalar', secretaria: 'SEMUSA', tipo: 'Serviço', classificacao: '-', valor: 168261.48, conclusao: 'Abril', prioridade: 'Alto' },
+                { codigo: 'PCA4', objeto: 'Software de Gestão Escolar', secretaria: 'SEMED', tipo: 'Serviço', classificacao: '-', valor: 12600.00, conclusao: 'Março', prioridade: 'Médio' },
+                { codigo: 'PCA5', objeto: 'Kits de Uniformes Escolares', secretaria: 'SEMED', tipo: 'Material', classificacao: 'Permanente', valor: 245000.00, conclusao: 'Janeiro', prioridade: 'Alto' },
+                { codigo: 'PCA6', objeto: 'Materiais de Educação Especial', secretaria: 'SEMED', tipo: 'Material', classificacao: 'Permanente', valor: 85000.00, conclusao: 'Fevereiro', prioridade: 'Médio' },
+                { codigo: 'PCA7', objeto: 'Locação de Equipamentos de Informática', secretaria: 'UNIFICADO', tipo: 'Serviço', classificacao: '-', valor: 711300.00, conclusao: 'Março', prioridade: 'Alto' },
+                { codigo: 'PCA8', objeto: 'Exames Laboratoriais', secretaria: 'SEMUSA', tipo: 'Serviço', classificacao: '-', valor: 423591.57, conclusao: 'Março', prioridade: 'Alto' },
+                { codigo: 'PCA9', objeto: 'Serviços de Radiologia', secretaria: 'SEMUSA', tipo: 'Serviço', classificacao: '-', valor: 156800.00, conclusao: 'Abril', prioridade: 'Alto' },
+                { codigo: 'PCA10', objeto: 'Equipamentos Médicos Hospitalares', secretaria: 'SEMUSA', tipo: 'Material', classificacao: 'Permanente', valor: 450000.00, conclusao: 'Junho', prioridade: 'Alto' },
+                { codigo: 'PCA11', objeto: 'Insumos de Laboratório Clínico', secretaria: 'SEMUSA', tipo: 'Material', classificacao: 'Consumo', valor: 280000.00, conclusao: 'Fevereiro', prioridade: 'Alto' },
+                { codigo: 'PCA12', objeto: 'Material de Papelaria', secretaria: 'UNIFICADO', tipo: 'Material', classificacao: 'Consumo', valor: 667000.00, conclusao: 'Maio', prioridade: 'Médio' },
+                { codigo: 'PCA13', objeto: 'Serviços de Limpeza e Higienização', secretaria: 'SEMAM', tipo: 'Serviço', classificacao: '-', valor: 890000.00, conclusao: 'Janeiro', prioridade: 'Alto' },
+                { codigo: 'PCA14', objeto: 'Produtos de Higiene Pessoal e Limpeza', secretaria: 'SEMAM', tipo: 'Material', classificacao: 'Consumo', valor: 125000.00, conclusao: 'Março', prioridade: 'Alto' },
+                { codigo: 'PCA15', objeto: 'Combustível por Cartão Magnético', secretaria: 'SEMAS, SEMDETUR', tipo: 'Serviço', classificacao: '-', valor: 3141484.00, conclusao: 'Maio', prioridade: 'Alto' },
+                { codigo: 'PCA16', objeto: 'Peças e Acessórios Automotivos', secretaria: 'SEMAS', tipo: 'Material', classificacao: 'Permanente', valor: 320000.00, conclusao: 'Junho', prioridade: 'Médio' },
+                { codigo: 'PCA17', objeto: 'Serviços de Consultoria Jurídica', secretaria: 'SEMAD', tipo: 'Serviço', classificacao: '-', valor: 180000.00, conclusao: 'Fevereiro', prioridade: 'Médio' },
+                { codigo: 'PCA18', objeto: 'Aluguel de Imóvel para Secretaria', secretaria: 'SEMAD', tipo: 'Serviço', classificacao: '-', valor: 450000.00, conclusao: 'Janeiro', prioridade: 'Alto' },
+                { codigo: 'PCA19', objeto: 'Serviços de Auditoria e Consultoria', secretaria: 'SEMAD', tipo: 'Serviço', classificacao: '-', valor: 220000.00, conclusao: 'Maio', prioridade: 'Médio' },
+                { codigo: 'PCA20', objeto: 'Assinatura de Software de Gestão Administrativa', secretaria: 'SEMAD', tipo: 'Serviço', classificacao: '-', valor: 89000.00, conclusao: 'Janeiro', prioridade: 'Alto' },
+                { codigo: 'PCA21', objeto: 'Material de Construção para Reparos', secretaria: 'SEMOB', tipo: 'Material', classificacao: 'Consumo', valor: 156000.00, conclusao: 'Março', prioridade: 'Médio' },
+                { codigo: 'PCA22', objeto: 'Serviços de Engenharia e Topografia', secretaria: 'SEMOB', tipo: 'Serviço', classificacao: '-', valor: 250000.00, conclusao: 'Fevereiro', prioridade: 'Médio' },
+                { codigo: 'PCA23', objeto: 'Construção da UBS Silvino de Barros', secretaria: 'SEMUSA', tipo: 'Serviço', classificacao: '-', valor: 1881388.07, conclusao: 'Maio', prioridade: 'Alto' },
+                { codigo: 'PCA24', objeto: 'Reforma da Escola Municipal Centro', secretaria: 'SEMED', tipo: 'Serviço', classificacao: '-', valor: 850000.00, conclusao: 'Abril', prioridade: 'Alto' },
+                { codigo: 'PCA25', objeto: 'Pavimentação Asfáltica de Ruas', secretaria: 'SEMOB', tipo: 'Serviço', classificacao: '-', valor: 1500000.00, conclusao: 'Julho', prioridade: 'Alto' },
+                { codigo: 'PCA26', objeto: 'Iluminação Pública com LED', secretaria: 'SEMOB', tipo: 'Material', classificacao: 'Permanente', valor: 380000.00, conclusao: 'Junho', prioridade: 'Alto' },
+                { codigo: 'PCA27', objeto: 'Serviços de Segurança Patrimonial', secretaria: 'SEMAP', tipo: 'Serviço', classificacao: '-', valor: 420000.00, conclusao: 'Janeiro', prioridade: 'Alto' },
+                { codigo: 'PCA28', objeto: 'Equipamentos de Proteção Individual', secretaria: 'SEMAP', tipo: 'Material', classificacao: 'Permanente', valor: 65000.00, conclusao: 'Fevereiro', prioridade: 'Médio' },
+                { codigo: 'PCA29', objeto: 'Viaturas e Motos para Polícia', secretaria: 'SEMAP', tipo: 'Material', classificacao: 'Permanente', valor: 750000.00, conclusao: 'Agosto', prioridade: 'Alto' },
+                { codigo: 'PCA30', objeto: 'Serviços de Catering para Eventos', secretaria: 'SEMAS', tipo: 'Serviço', classificacao: '-', valor: 95000.00, conclusao: 'Abril', prioridade: 'Baixo' },
+                { codigo: 'PCA31', objeto: 'Aquisição de Alimentos para Cestas Básicas', secretaria: 'SEMAS', tipo: 'Material', classificacao: 'Consumo', valor: 385000.00, conclusao: 'Fevereiro', prioridade: 'Alto' },
+                { codigo: 'PCA32', objeto: 'Serviços de Transporte de Pessoas', secretaria: 'SEMAS', tipo: 'Serviço', classificacao: '-', valor: 280000.00, conclusao: 'Março', prioridade: 'Médio' },
+                { codigo: 'PCA33', objeto: 'Medicamentos para Programa de Saúde da Mulher', secretaria: 'SEMUSA', tipo: 'Material', classificacao: 'Consumo', valor: 120000.00, conclusao: 'Fevereiro', prioridade: 'Alto' },
+                { codigo: 'PCA34', objeto: 'Órteses e Próteses Dinâmicas', secretaria: 'SEMUSA', tipo: 'Material', classificacao: 'Permanente', valor: 180000.00, conclusao: 'Maio', prioridade: 'Alto' },
+                { codigo: 'PCA35', objeto: 'Cadeiras de Rodas e Muletas', secretaria: 'SEMUSA', tipo: 'Material', classificacao: 'Permanente', valor: 95000.00, conclusao: 'Março', prioridade: 'Médio' },
+                { codigo: 'PCA36', objeto: 'Serviços de Fisioterapia Contratada', secretaria: 'SEMUSA', tipo: 'Serviço', classificacao: '-', valor: 156000.00, conclusao: 'Abril', prioridade: 'Médio' },
+                { codigo: 'PCA37', objeto: 'Bolsas de Estudo para Alunos', secretaria: 'SEMED', tipo: 'Serviço', classificacao: '-', valor: 580000.00, conclusao: 'Janeiro', prioridade: 'Alto' },
+                { codigo: 'PCA38', objeto: 'Livros Didáticos para Escolas', secretaria: 'SEMED', tipo: 'Material', classificacao: 'Permanente', valor: 420000.00, conclusao: 'Fevereiro', prioridade: 'Alto' },
+                { codigo: 'PCA39', objeto: 'Computadores e Tablets para Educação', secretaria: 'SEMED', tipo: 'Material', classificacao: 'Permanente', valor: 680000.00, conclusao: 'Março', prioridade: 'Alto' },
+                { codigo: 'PCA40', objeto: 'Laboratório de Ciências Equipamentos', secretaria: 'SEMED', tipo: 'Material', classificacao: 'Permanente', valor: 250000.00, conclusao: 'Maio', prioridade: 'Médio' },
+                { codigo: 'PCA41', objeto: 'Serviços de Educação Continuada', secretaria: 'SEMED', tipo: 'Serviço', classificacao: '-', valor: 180000.00, conclusao: 'Junho', prioridade: 'Médio' },
+                { codigo: 'PCA42', objeto: 'Programa de Alimentação Escolar', secretaria: 'SEMED', tipo: 'Serviço', classificacao: '-', valor: 2800000.00, conclusao: 'Dezembro', prioridade: 'Alto' },
+                { codigo: 'PCA43', objeto: 'Manutenção de Veículos', secretaria: 'SEMAS, SEMAP', tipo: 'Serviço', classificacao: '-', valor: 3600000.00, conclusao: 'Julho', prioridade: 'Alto' },
+                { codigo: 'PCA44', objeto: 'Pneus e Rodas para Veículos', secretaria: 'SEMAS', tipo: 'Material', classificacao: 'Permanente', valor: 145000.00, conclusao: 'Junho', prioridade: 'Médio' },
+                { codigo: 'PCA45', objeto: 'Óleos e Lubrificantes', secretaria: 'SEMAS', tipo: 'Material', classificacao: 'Consumo', valor: 78000.00, conclusao: 'Abril', prioridade: 'Médio' },
+                { codigo: 'PCA46', objeto: 'Serviços de Monitoramento de Frota', secretaria: 'SEMAS', tipo: 'Serviço', classificacao: '-', valor: 95000.00, conclusao: 'Maio', prioridade: 'Médio' },
+                { codigo: 'PCA47', objeto: 'GPS e Rastreadores Veiculares', secretaria: 'SEMAS', tipo: 'Material', classificacao: 'Permanente', valor: 85000.00, conclusao: 'Fevereiro', prioridade: 'Médio' },
+                { codigo: 'PCA48', objeto: 'Uniformes para Servidores Públicos', secretaria: 'SEMAD', tipo: 'Material', classificacao: 'Permanente', valor: 280000.00, conclusao: 'Março', prioridade: 'Médio' },
+                { codigo: 'PCA49', objeto: 'Equipamentos de Informática para Prefeitura', secretaria: 'SEMAD', tipo: 'Material', classificacao: 'Permanente', valor: 520000.00, conclusao: 'Fevereiro', prioridade: 'Alto' },
+                { codigo: 'PCA50', objeto: 'Credenciamento de Serviços Médicos', secretaria: 'SEMUSA', tipo: 'Serviço', classificacao: '-', valor: 3500000.00, conclusao: 'Julho', prioridade: 'Alto' },
+                { codigo: 'PCA51', objeto: 'Contratação de Profissionais de Saúde', secretaria: 'SEMUSA', tipo: 'Serviço', classificacao: '-', valor: 1200000.00, conclusao: 'Janeiro', prioridade: 'Alto' },
+                { codigo: 'PCA52', objeto: 'Serviços de Vigilância Epidemiológica', secretaria: 'SEMUSA', tipo: 'Serviço', classificacao: '-', valor: 180000.00, conclusao: 'Fevereiro', prioridade: 'Alto' },
+                { codigo: 'PCA53', objeto: 'Vacinas e Imunobiológicos', secretaria: 'SEMUSA', tipo: 'Material', classificacao: 'Consumo', valor: 320000.00, conclusao: 'Janeiro', prioridade: 'Alto' },
+                { codigo: 'PCA54', objeto: 'Coleta e Transporte de Sangue', secretaria: 'SEMUSA', tipo: 'Serviço', classificacao: '-', valor: 95000.00, conclusao: 'Março', prioridade: 'Alto' },
+                { codigo: 'PCA55', objeto: 'Serviços de Odontologia', secretaria: 'SEMUSA', tipo: 'Serviço', classificacao: '-', valor: 250000.00, conclusao: 'Fevereiro', prioridade: 'Alto' },
+                { codigo: 'PCA56', objeto: 'Próteses Dentárias', secretaria: 'SEMUSA', tipo: 'Material', classificacao: 'Permanente', valor: 125000.00, conclusao: 'Abril', prioridade: 'Médio' },
+                { codigo: 'PCA57', objeto: 'Serviços de Psicologia e Psiquiatria', secretaria: 'SEMUSA', tipo: 'Serviço', classificacao: '-', valor: 180000.00, conclusao: 'Março', prioridade: 'Médio' },
+                { codigo: 'PCA58', objeto: 'Medicamentos Controlados', secretaria: 'SEMUSA', tipo: 'Material', classificacao: 'Consumo', valor: 156000.00, conclusao: 'Março', prioridade: 'Alto' },
+                { codigo: 'PCA59', objeto: 'Ambulância e Equipamentos de Resgate', secretaria: 'SEMUSA', tipo: 'Material', classificacao: 'Permanente', valor: 380000.00, conclusao: 'Junho', prioridade: 'Alto' },
+                { codigo: 'PCA60', objeto: 'Serviços de Manutenção Preventiva', secretaria: 'SEMUSA', tipo: 'Serviço', classificacao: '-', valor: 125000.00, conclusao: 'Maio', prioridade: 'Médio' },
+                { codigo: 'PCA61', objeto: 'Serviços de Transporte de Pacientes', secretaria: 'SEMUSA', tipo: 'Serviço', classificacao: '-', valor: 280000.00, conclusao: 'Julho', prioridade: 'Médio' },
+                { codigo: 'PCA62', objeto: 'Medicamentos Farmácia Básica', secretaria: 'SEMUSA', tipo: 'Material', classificacao: 'Consumo', valor: 1145845.22, conclusao: 'Agosto', prioridade: 'Alto' },
+                { codigo: 'PCA63', objeto: 'Medicamentos Injetáveis', secretaria: 'SEMUSA', tipo: 'Material', classificacao: 'Consumo', valor: 486226.00, conclusao: 'Agosto', prioridade: 'Alto' },
+                { codigo: 'PCA64', objeto: 'Material Hospitalar', secretaria: 'SEMUSA', tipo: 'Serviço', classificacao: '-', valor: 1873651.82, conclusao: 'Agosto', prioridade: 'Alto' },
+                { codigo: 'PCA65', objeto: 'Gases Medicinais', secretaria: 'SEMUSA', tipo: 'Material', classificacao: 'Consumo', valor: 95000.00, conclusao: 'Fevereiro', prioridade: 'Alto' },
+                { codigo: 'PCA66', objeto: 'Serviços de Limpeza Hospitalar', secretaria: 'SEMUSA', tipo: 'Serviço', classificacao: '-', valor: 156000.00, conclusao: 'Janeiro', prioridade: 'Alto' },
+                { codigo: 'PCA67', objeto: 'Desinfetantes e Antissépticos', secretaria: 'SEMUSA', tipo: 'Material', classificacao: 'Consumo', valor: 85000.00, conclusao: 'Fevereiro', prioridade: 'Alto' },
+                { codigo: 'PCA68', objeto: 'Serviços de Comunicação Visual', secretaria: 'SEMAS', tipo: 'Serviço', classificacao: '-', valor: 125000.00, conclusao: 'Abril', prioridade: 'Baixo' },
+                { codigo: 'PCA69', objeto: 'Impressoras e Copiadoras', secretaria: 'UNIFICADO', tipo: 'Material', classificacao: 'Permanente', valor: 180000.00, conclusao: 'Março', prioridade: 'Médio' },
+                { codigo: 'PCA70', objeto: 'Cartuchos e Toner para Impressoras', secretaria: 'UNIFICADO', tipo: 'Material', classificacao: 'Consumo', valor: 95000.00, conclusao: 'Junho', prioridade: 'Médio' },
+                { codigo: 'PCA71', objeto: 'Serviços de Telemarketing', secretaria: 'SEMAD', tipo: 'Serviço', classificacao: '-', valor: 145000.00, conclusao: 'Maio', prioridade: 'Médio' },
+                { codigo: 'PCA72', objeto: 'Telefonia e Internet', secretaria: 'SEMAD', tipo: 'Serviço', classificacao: '-', valor: 280000.00, conclusao: 'Janeiro', prioridade: 'Alto' },
+                { codigo: 'PCA73', objeto: 'Serviços de TV Corporativa', secretaria: 'SEMAD', tipo: 'Serviço', classificacao: '-', valor: 85000.00, conclusao: 'Fevereiro', prioridade: 'Baixo' },
+                { codigo: 'PCA74', objeto: 'Mobiliário para Órgãos Públicos', secretaria: 'UNIFICADO', tipo: 'Material', classificacao: 'Permanente', valor: 420000.00, conclusao: 'Abril', prioridade: 'Médio' },
+                { codigo: 'PCA75', objeto: 'Estações de Trabalho', secretaria: 'SEMAD', tipo: 'Material', classificacao: 'Permanente', valor: 380000.00, conclusao: 'Março', prioridade: 'Médio' },
+                { codigo: 'PCA76', objeto: 'Serviços de Manutenção de Ar Condicionado', secretaria: 'UNIFICADO', tipo: 'Serviço', classificacao: '-', valor: 250000.00, conclusao: 'Fevereiro', prioridade: 'Médio' },
+                { codigo: 'PCA77', objeto: 'Peças de Reposição para Ar Condicionado', secretaria: 'UNIFICADO', tipo: 'Material', classificacao: 'Permanente', valor: 95000.00, conclusao: 'Março', prioridade: 'Médio' },
+                { codigo: 'PCA78', objeto: 'Serviços de Eletricidade e Hidráulica', secretaria: 'SEMOB', tipo: 'Serviço', classificacao: '-', valor: 180000.00, conclusao: 'Abril', prioridade: 'Médio' },
+                { codigo: 'PCA79', objeto: 'Materiais Elétricos e Hidráulicos', secretaria: 'SEMOB', tipo: 'Material', classificacao: 'Permanente', valor: 125000.00, conclusao: 'Maio', prioridade: 'Médio' },
+                { codigo: 'PCA80', objeto: 'Serviços de Pintura e Decoração', secretaria: 'SEMOB', tipo: 'Serviço', classificacao: '-', valor: 145000.00, conclusao: 'Junho', prioridade: 'Baixo' },
+                { codigo: 'PCA81', objeto: 'Tintas e Materiais de Pintura', secretaria: 'SEMOB', tipo: 'Material', classificacao: 'Consumo', valor: 65000.00, conclusao: 'Junho', prioridade: 'Baixo' },
+                { codigo: 'PCA82', objeto: 'Plantio de Árvores e Paisagismo', secretaria: 'SEMAM', tipo: 'Serviço', classificacao: '-', valor: 280000.00, conclusao: 'Maio', prioridade: 'Médio' },
+                { codigo: 'PCA83', objeto: 'Sementes e Mudas para Paisagismo', secretaria: 'SEMAM', tipo: 'Material', classificacao: 'Consumo', valor: 95000.00, conclusao: 'Março', prioridade: 'Médio' },
+                { codigo: 'PCA84', objeto: 'Serviços de Podação e Capinação', secretaria: 'SEMAM', tipo: 'Serviço', classificacao: '-', valor: 156000.00, conclusao: 'Junho', prioridade: 'Médio' },
+                { codigo: 'PCA85', objeto: 'Ferramentas para Manutenção de Áreas Verdes', secretaria: 'SEMAM', tipo: 'Material', classificacao: 'Permanente', valor: 78000.00, conclusao: 'Fevereiro', prioridade: 'Baixo' },
+                { codigo: 'PCA86', objeto: 'Serviços de Coleta de Resíduos Sólidos', secretaria: 'SEMAM', tipo: 'Serviço', classificacao: '-', valor: 1450000.00, conclusao: 'Janeiro', prioridade: 'Alto' },
+                { codigo: 'PCA87', objeto: 'Sacos e Contêineres para Resíduos', secretaria: 'SEMAM', tipo: 'Material', classificacao: 'Consumo', valor: 125000.00, conclusao: 'Fevereiro', prioridade: 'Alto' },
+                { codigo: 'PCA88', objeto: 'Aterro Sanitário e Disposição de Resíduos', secretaria: 'SEMAM', tipo: 'Serviço', classificacao: '-', valor: 380000.00, conclusao: 'Dezembro', prioridade: 'Alto' },
+                { codigo: 'PCA89', objeto: 'Serviços de Reciclagem', secretaria: 'SEMAM', tipo: 'Serviço', classificacao: '-', valor: 95000.00, conclusao: 'Abril', prioridade: 'Médio' },
+                { codigo: 'PCA90', objeto: 'Ecopontos e Containers', secretaria: 'SEMAM', tipo: 'Material', classificacao: 'Permanente', valor: 180000.00, conclusao: 'Março', prioridade: 'Médio' },
+                { codigo: 'PCA91', objeto: 'Serviços de Dragagem de Rio', secretaria: 'SEMOB', tipo: 'Serviço', classificacao: '-', valor: 420000.00, conclusao: 'Julho', prioridade: 'Médio' },
+                { codigo: 'PCA92', objeto: 'Materiais para Contenção de Enchentes', secretaria: 'SEMOB', tipo: 'Material', classificacao: 'Permanente', valor: 250000.00, conclusao: 'Fevereiro', prioridade: 'Alto' },
+                { codigo: 'PCA93', objeto: 'Serviços de Drenagem Urbana', secretaria: 'SEMOB', tipo: 'Serviço', classificacao: '-', valor: 380000.00, conclusao: 'Agosto', prioridade: 'Alto' },
+                { codigo: 'PCA94', objeto: 'Merenda Escolar', secretaria: 'SEMED', tipo: 'Material', classificacao: 'Consumo', valor: 1151031.23, conclusao: 'Dezembro', prioridade: 'Alto' },
+                { codigo: 'PCA95', objeto: 'Ingredientes para Cozinhas Escolares', secretaria: 'SEMED', tipo: 'Material', classificacao: 'Consumo', valor: 580000.00, conclusao: 'Junho', prioridade: 'Alto' },
+                { codigo: 'PCA96', objeto: 'Panelas e Utensílios de Cozinha', secretaria: 'SEMED', tipo: 'Material', classificacao: 'Permanente', valor: 95000.00, conclusao: 'Março', prioridade: 'Médio' },
+                { codigo: 'PCA97', objeto: 'Serviços de Consultoria Educacional', secretaria: 'SEMED', tipo: 'Serviço', classificacao: '-', valor: 180000.00, conclusao: 'Abril', prioridade: 'Médio' },
+                { codigo: 'PCA98', objeto: 'Programa de Reforço Escolar', secretaria: 'SEMED', tipo: 'Serviço', classificacao: '-', valor: 320000.00, conclusao: 'Fevereiro', prioridade: 'Médio' },
+                { codigo: 'PCA99', objeto: 'Materiais Pedagógicos Diversos', secretaria: 'SEMED', tipo: 'Material', classificacao: 'Permanente', valor: 145000.00, conclusao: 'Janeiro', prioridade: 'Médio' },
+                { codigo: 'PCA100', objeto: 'Instrumentos Musicais para Escolas', secretaria: 'SEMED', tipo: 'Material', classificacao: 'Permanente', valor: 95000.00, conclusao: 'Maio', prioridade: 'Médio' },
+                { codigo: 'PCA101', objeto: 'Serviços de Educação Física', secretaria: 'SEMED', tipo: 'Serviço', classificacao: '-', valor: 125000.00, conclusao: 'Junho', prioridade: 'Médio' },
+                { codigo: 'PCA102', objeto: 'Equipamentos de Educação Física', secretaria: 'SEMED', tipo: 'Material', classificacao: 'Permanente', valor: 180000.00, conclusao: 'Abril', prioridade: 'Médio' },
+                { codigo: 'PCA103', objeto: 'Serviços de Transporte de Funcionários', secretaria: 'SEMAS', tipo: 'Serviço', classificacao: '-', valor: 156000.00, conclusao: 'Janeiro', prioridade: 'Médio' },
+                { codigo: 'PCA104', objeto: 'Cartão VT para Servidores', secretaria: 'SEMAS', tipo: 'Serviço', classificacao: '-', valor: 420000.00, conclusao: 'Janeiro', prioridade: 'Alto' },
+                { codigo: 'PCA105', objeto: 'Serviços de Alimentação de Servidores', secretaria: 'SEMAS', tipo: 'Serviço', classificacao: '-', valor: 280000.00, conclusao: 'Janeiro', prioridade: 'Médio' },
+                { codigo: 'PCA106', objeto: 'Cartão Refeição para Funcionários', secretaria: 'SEMAS', tipo: 'Serviço', classificacao: '-', valor: 580000.00, conclusao: 'Janeiro', prioridade: 'Alto' },
+                { codigo: 'PCA107', objeto: 'Programa de Saúde do Servidor', secretaria: 'SEMADA', tipo: 'Serviço', classificacao: '-', valor: 250000.00, conclusao: 'Fevereiro', prioridade: 'Médio' },
+                { codigo: 'PCA108', objeto: 'Ginástica Laboral para Servidores', secretaria: 'SEMAS', tipo: 'Serviço', classificacao: '-', valor: 95000.00, conclusao: 'Março', prioridade: 'Baixo' },
+                { codigo: 'PCA109', objeto: 'Serviços de Recrutamento e Seleção', secretaria: 'SEMAS', tipo: 'Serviço', classificacao: '-', valor: 180000.00, conclusao: 'Fevereiro', prioridade: 'Médio' },
+                { codigo: 'PCA110', objeto: 'Cursos de Capacitação de Pessoal', secretaria: 'SEMAS', tipo: 'Serviço', classificacao: '-', valor: 320000.00, conclusao: 'Abril', prioridade: 'Médio' },
+                { codigo: 'PCA111', objeto: 'Transporte Escolar', secretaria: 'SEMED', tipo: 'Serviço', classificacao: '-', valor: 6200000.00, conclusao: 'Janeiro', prioridade: 'Alto' },
+                { codigo: 'PCA112', objeto: 'Cartão Transporte para Alunos', secretaria: 'SEMED', tipo: 'Serviço', classificacao: '-', valor: 1450000.00, conclusao: 'Janeiro', prioridade: 'Alto' },
+                { codigo: 'PCA113', objeto: 'Manutenção de Ônibus Escolares', secretaria: 'SEMED', tipo: 'Serviço', classificacao: '-', valor: 380000.00, conclusao: 'Agosto', prioridade: 'Médio' },
+                { codigo: 'PCA114', objeto: 'Ônibus Escolar Novos', secretaria: 'SEMED', tipo: 'Material', classificacao: 'Permanente', valor: 1200000.00, conclusao: 'Junho', prioridade: 'Alto' },
+                { codigo: 'PCA115', objeto: 'Rastreamento de Ônibus Escolares', secretaria: 'SEMED', tipo: 'Serviço', classificacao: '-', valor: 95000.00, conclusao: 'Fevereiro', prioridade: 'Médio' },
+                { codigo: 'PCA116', objeto: 'Seguro de Ônibus Escolares', secretaria: 'SEMED', tipo: 'Serviço', classificacao: '-', valor: 280000.00, conclusao: 'Janeiro', prioridade: 'Alto' },
+                { codigo: 'PCA117', objeto: 'Construção de 2 Pontes de Concreto', secretaria: 'SEMOB', tipo: 'Serviço', classificacao: '-', valor: 1245600.00, conclusao: 'Janeiro', prioridade: 'Alto' },
+                { codigo: 'PCA118', objeto: 'Duplicação de Rodovia Municipal', secretaria: 'SEMOB', tipo: 'Serviço', classificacao: '-', valor: 2500000.00, conclusao: 'Setembro', prioridade: 'Alto' },
+                { codigo: 'PCA119', objeto: 'Calçamento de Ruas e Avenidas', secretaria: 'SEMOB', tipo: 'Serviço', classificacao: '-', valor: 850000.00, conclusao: 'Julho', prioridade: 'Alto' },
+                { codigo: 'PCA120', objeto: 'Sinalização Horizontal e Vertical', secretaria: 'SEMOB', tipo: 'Serviço', classificacao: '-', valor: 156000.00, conclusao: 'Maio', prioridade: 'Médio' },
+                { codigo: 'PCA121', objeto: 'Semáforos Inteligentes', secretaria: 'SEMOB', tipo: 'Material', classificacao: 'Permanente', valor: 320000.00, conclusao: 'Junho', prioridade: 'Médio' },
+                { codigo: 'PCA122', objeto: 'Construção de Centro de Educação Infantil', secretaria: 'SEMED', tipo: 'Serviço', classificacao: '-', valor: 10000000.00, conclusao: 'Janeiro', prioridade: 'Alto' },
+                { codigo: 'PCA123', objeto: 'Construção de Escola em Tempo Integral', secretaria: 'SEMED', tipo: 'Serviço', classificacao: '-', valor: 10000000.00, conclusao: 'Janeiro', prioridade: 'Alto' },
+                { codigo: 'PCA124', objeto: 'Reforma de Quadra Esportiva', secretaria: 'SEMAS', tipo: 'Serviço', classificacao: '-', valor: 450000.00, conclusao: 'Julho', prioridade: 'Médio' },
+                { codigo: 'PCA125', objeto: 'Construção de Piscina Pública', secretaria: 'SEMAS', tipo: 'Serviço', classificacao: '-', valor: 1800000.00, conclusao: 'Setembro', prioridade: 'Alto' },
+                { codigo: 'PCA126', objeto: 'Parque Temático com Equipamentos', secretaria: 'SEMAS', tipo: 'Material', classificacao: 'Permanente', valor: 520000.00, conclusao: 'Agosto', prioridade: 'Médio' },
+                { codigo: 'PCA127', objeto: 'Reforma de Casa de Cultura', secretaria: 'SEMAS', tipo: 'Serviço', classificacao: '-', valor: 380000.00, conclusao: 'Junho', prioridade: 'Médio' },
+                { codigo: 'PCA128', objeto: 'Biblioteca Pública - Acervo', secretaria: 'SEMAS', tipo: 'Material', classificacao: 'Permanente', valor: 180000.00, conclusao: 'Abril', prioridade: 'Médio' },
+                { codigo: 'PCA129', objeto: 'Construção de Creche e Pré-escola', secretaria: 'SEMED', tipo: 'Serviço', classificacao: '-', valor: 10000000.00, conclusao: 'Janeiro', prioridade: 'Alto' },
+                { codigo: 'PCA130', objeto: 'Adequação de Acessibilidade em Prédios', secretaria: 'SEMOB', tipo: 'Serviço', classificacao: '-', valor: 420000.00, conclusao: 'Julho', prioridade: 'Alto' },
+                { codigo: 'PCA131', objeto: 'Elevadores para Acessibilidade', secretaria: 'SEMOB', tipo: 'Material', classificacao: 'Permanente', valor: 280000.00, conclusao: 'Junho', prioridade: 'Médio' },
+                { codigo: 'PCA132', objeto: 'Rampas de Acesso para Deficientes', secretaria: 'SEMOB', tipo: 'Serviço', classificacao: '-', valor: 156000.00, conclusao: 'Maio', prioridade: 'Alto' },
+                { codigo: 'PCA133', objeto: 'Banheiros Acessíveis em Prédios', secretaria: 'SEMOB', tipo: 'Serviço', classificacao: '-', valor: 180000.00, conclusao: 'Junho', prioridade: 'Médio' },
+                { codigo: 'PCA134', objeto: 'Estacionamento para Deficientes', secretaria: 'SEMOB', tipo: 'Serviço', classificacao: '-', valor: 95000.00, conclusao: 'Maio', prioridade: 'Baixo' },
+                { codigo: 'PCA135', objeto: 'Auditoria Interna e Gestão', secretaria: 'SEMAD', tipo: 'Serviço', classificacao: '-', valor: 145000.00, conclusao: 'Dezembro', prioridade: 'Médio' },
+            ];
 
-        // Função para formatar moeda
-        function formatarMoeda(valor) {
-            return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
-        }
+            // Função para formatar moeda
+            function formatarMoeda(valor) {
+                return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
+            }
 
-        // Função para renderizar tabela
-        function renderTable(data) {
-            const tbody = document.getElementById('tableBody');
-            tbody.innerHTML = '';
-            data.forEach(contract => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
+            // Função para renderizar tabela
+            function renderTable(data) {
+                const tbody = document.getElementById('tableBody');
+                tbody.innerHTML = '';
+                data.forEach(contract => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
                     <td><strong>${contract.codigo}</strong></td>
                     <td>${contract.objeto}</td>
                     <td>${contract.secretaria}</td>
@@ -1007,97 +1249,97 @@
                     <td>${contract.conclusao}</td>
                     <td><span class="priority-${contract.prioridade.toLowerCase()}">${contract.prioridade}</span></td>
                 `;
-                tbody.appendChild(row);
-            });
-        }
+                    tbody.appendChild(row);
+                });
+            }
 
-        // Função de busca e filtro
-        function applyFilters() {
-            const searchInput = document.getElementById('searchInput').value.toLowerCase();
-            const priorityFilter = document.getElementById('filterPriority').value;
-            const typeFilter = document.getElementById('filterType').value;
-            const materialFilter = document.getElementById('filterMaterial').value;
+            // Função de busca e filtro
+            function applyFilters() {
+                const searchInput = document.getElementById('searchInput').value.toLowerCase();
+                const priorityFilter = document.getElementById('filterPriority').value;
+                const typeFilter = document.getElementById('filterType').value;
+                const materialFilter = document.getElementById('filterMaterial').value;
 
-            const filtered = contracts.filter(c => {
-                const matchSearch = c.objeto.toLowerCase().includes(searchInput) || c.secretaria.toLowerCase().includes(searchInput) || c.codigo.toLowerCase().includes(searchInput);
-                const matchPriority = !priorityFilter || c.prioridade === priorityFilter;
-                const matchType = !typeFilter || c.tipo === typeFilter;
-                const matchMaterial = !materialFilter || c.classificacao === materialFilter;
-                return matchSearch && matchPriority && matchType && matchMaterial;
-            });
+                const filtered = contracts.filter(c => {
+                    const matchSearch = c.objeto.toLowerCase().includes(searchInput) || c.secretaria.toLowerCase().includes(searchInput) || c.codigo.toLowerCase().includes(searchInput);
+                    const matchPriority = !priorityFilter || c.prioridade === priorityFilter;
+                    const matchType = !typeFilter || c.tipo === typeFilter;
+                    const matchMaterial = !materialFilter || c.classificacao === materialFilter;
+                    return matchSearch && matchPriority && matchType && matchMaterial;
+                });
 
-            renderTable(filtered);
-        }
+                renderTable(filtered);
+            }
 
-        // Tab navigation
-        document.querySelectorAll('.nav-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const tabName = btn.getAttribute('data-tab');
-                document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-                document.getElementById(tabName).classList.add('active');
-                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-            });
-        });
-
-        // Accordion functionality
-        document.querySelectorAll('.accordion-header').forEach(header => {
-            header.addEventListener('click', () => {
-                const body = header.nextElementSibling;
-                const isActive = body.classList.contains('active');
-
-                document.querySelectorAll('.accordion-body').forEach(b => b.classList.remove('active'));
-                document.querySelectorAll('.accordion-header').forEach(h => h.classList.remove('active'));
-
-                if (!isActive) {
-                    body.classList.add('active');
-                    header.classList.add('active');
-                }
-            });
-        });
-
-        // Event listeners for filters
-        document.getElementById('searchInput').addEventListener('input', applyFilters);
-        document.getElementById('filterPriority').addEventListener('change', applyFilters);
-        document.getElementById('filterType').addEventListener('change', applyFilters);
-        document.getElementById('filterMaterial').addEventListener('change', applyFilters);
-
-        // Generate chronology
-        function generateChronology() {
-            const months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
-            const container = document.getElementById('chronologyContainer');
-
-            const monthData = {};
-            contracts.forEach(c => {
-                const month = c.conclusao;
-                if (!monthData[month]) monthData[month] = [];
-                monthData[month].push(c);
+            // Tab navigation
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const tabName = btn.getAttribute('data-tab');
+                    document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+                    document.getElementById(tabName).classList.add('active');
+                    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                });
             });
 
-            months.forEach(month => {
-                const count = monthData[month] ? monthData[month].length : 0;
-                const total = monthData[month] ? monthData[month].reduce((sum, c) => sum + c.valor, 0) : 0;
+            // Accordion functionality
+            document.querySelectorAll('.accordion-header').forEach(header => {
+                header.addEventListener('click', () => {
+                    const body = header.nextElementSibling;
+                    const isActive = body.classList.contains('active');
 
-                const div = document.createElement('div');
-                div.className = 'card';
-                div.innerHTML = `
+                    document.querySelectorAll('.accordion-body').forEach(b => b.classList.remove('active'));
+                    document.querySelectorAll('.accordion-header').forEach(h => h.classList.remove('active'));
+
+                    if (!isActive) {
+                        body.classList.add('active');
+                        header.classList.add('active');
+                    }
+                });
+            });
+
+            // Event listeners for filters
+            document.getElementById('searchInput').addEventListener('input', applyFilters);
+            document.getElementById('filterPriority').addEventListener('change', applyFilters);
+            document.getElementById('filterType').addEventListener('change', applyFilters);
+            document.getElementById('filterMaterial').addEventListener('change', applyFilters);
+
+            // Generate chronology
+            function generateChronology() {
+                const months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+                const container = document.getElementById('chronologyContainer');
+
+                const monthData = {};
+                contracts.forEach(c => {
+                    const month = c.conclusao;
+                    if (!monthData[month]) monthData[month] = [];
+                    monthData[month].push(c);
+                });
+
+                months.forEach(month => {
+                    const count = monthData[month] ? monthData[month].length : 0;
+                    const total = monthData[month] ? monthData[month].reduce((sum, c) => sum + c.valor, 0) : 0;
+
+                    const div = document.createElement('div');
+                    div.className = 'card';
+                    div.innerHTML = `
                     <h4>${month}</h4>
                     <p><strong>${count}</strong> contratações</p>
-                    <p>Total: <span style="color: #667eea; font-weight: 600;">${formatarMoeda(total)}</span></p>
+                    <p>Total: <span style="color: var(--primary); font-weight: 600;">${formatarMoeda(total)}</span></p>
                 `;
-                container.appendChild(div);
-            });
+                    container.appendChild(div);
+                });
 
-            container.style.display = 'grid';
-            container.style.gridTemplateColumns = 'repeat(auto-fit, minmax(200px, 1fr))';
-            container.style.gap = '15px';
-            container.style.marginTop = '20px';
-        }
+                container.style.display = 'grid';
+                container.style.gridTemplateColumns = 'repeat(auto-fit, minmax(200px, 1fr))';
+                container.style.gap = '15px';
+                container.style.marginTop = '20px';
+            }
 
-        // Initialize
-        renderTable(contracts);
-        generateChronology();
-    </script>
+            // Initialize
+            renderTable(contracts);
+            generateChronology();
+        </script>
 </body>
 
 </html>
